@@ -1,0 +1,24 @@
+{
+    "python.linting.enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyArgs": [
+        "--warn-unused-configs",
+        "--ignore-missing-imports",
+        "--disallow-untyped-calls",
+        "--disallow-untyped-defs",
+        "--disallow-incomplete-defs",
+        "--check-untyped-defs",
+        "--disallow-untyped-decorators",
+    ],
+    "isort.args": [
+        "--profile",
+        "black",
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+        }
+      }
+}
