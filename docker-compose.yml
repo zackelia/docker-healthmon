@@ -1,0 +1,7 @@
+services:
+  healthmon:
+    image: healthmon:latest
+    container_name: healthmon
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

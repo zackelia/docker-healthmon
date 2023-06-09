@@ -5,8 +5,14 @@ dynamic = ["version"]
 dependencies = [
 ]
 
+[tool.setuptools]
+include-package-data = true
+
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+healthmon = ["*.sh"]
 
 [tool.setuptools.dynamic]
 version = {attr = "healthmon.__version__"}
@@ -28,4 +34,5 @@ dev = [
     "black",
     "isort",
     "mypy",
+    "types-setuptools",
 ]

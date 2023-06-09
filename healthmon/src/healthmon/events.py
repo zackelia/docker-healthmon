@@ -1,8 +1,12 @@
 import dataclasses
 import json
-import shutil
+import signal
 import subprocess
-from typing import Generator
+from typing import Any, Generator
+
+import pkg_resources
+
+process: subprocess.Popen | None = None
 
 
 @dataclasses.dataclass
@@ -17,19 +21,24 @@ class HealthStatusEvent:
         self.container_name = container_name
 
 
+def _terminate_docker_events(*_: Any) -> None:
+    global process
+    assert process
+    # Docker will fail to stop child processes sending SIGTERM to this module alone.
+    process.terminate()
+
+
 def docker_health_status_events() -> Generator[HealthStatusEvent, None, None]:
     """Parse health-status events from the Docker client."""
-    docker = shutil.which("docker")
-    assert docker
+    signal.signal(signal.SIGTERM, _terminate_docker_events)
 
+    events_script = pkg_resources.resource_filename("healthmon", "docker-events.sh")
+
+    global process
     process = subprocess.Popen(
         [
-            docker,
-            "events",
-            "--filter",
-            "event=health_status",
-            "--format",
-            "{{json .}}",
+            "sudo",
+            events_script,
         ],
         stdout=subprocess.PIPE,
     )
