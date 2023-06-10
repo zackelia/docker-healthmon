@@ -3,6 +3,7 @@ name = "healthmon"
 description = "Automatic docker health check monitoring and reporting"
 dynamic = ["version"]
 dependencies = [
+    "apprise==1.4.0"
 ]
 
 [tool.setuptools]
@@ -34,5 +35,6 @@ dev = [
     "black",
     "isort",
     "mypy",
+    "types-requests",
     "types-setuptools",
 ]
