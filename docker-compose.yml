@@ -1,7 +1,11 @@
 services:
   healthmon:
-    image: healthmon:latest
+    image: ghcr.io/zackelia/healthmon:latest
     container_name: healthmon
     restart: unless-stopped
+    hostname: my-server
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+        # Find all supported URLs at: https://github.com/caronc/apprise
+      - APPRISE_URL=mailto://userid:pass@domain.com
